@@ -1,0 +1,24 @@
+name: PR test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  updateAuthors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.DEPLOY_KEY  }}
+
+      - name: Update Test
+        run: |
+          echo "Testing PR GH action" > test.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: test commit
+          title: Test
+          body: Testing automatic CI run with deploy key
+          branch: test-deploy-key
