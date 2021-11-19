@@ -15,7 +15,7 @@ jobs:
       - name: Update Test
         run: |
           echo "Testing PR GH action" >> test.txt
-      
+
       - name: Issue Pull Request
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: peter-evans/create-pull-request@v3
@@ -26,3 +26,4 @@ jobs:
           branch: bot-conda-lock-update
           labels: bot-conda-lock-update,kokoro:force-run
           delete-branch: true
+          signoff: true
