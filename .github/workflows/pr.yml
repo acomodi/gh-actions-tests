@@ -14,7 +14,7 @@ jobs:
 
       - name: Update Test
         run: |
-          echo "Testing PR GH action" > test.txt
+          echo "Testing PR GH action" >> test.txt
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
@@ -22,3 +22,4 @@ jobs:
           title: Test
           body: Testing automatic CI run with deploy key
           branch: test-deploy-key
+          delete-branch: true
