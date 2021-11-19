@@ -23,4 +23,5 @@ jobs:
           title: ${{ env.TITLE }}
           body: Testing automatic CI run with deploy key
           branch: test-deploy-key
+          labels: bot-update-conda
           delete-branch: true
