@@ -15,13 +15,14 @@ jobs:
       - name: Update Test
         run: |
           echo "Testing PR GH action" >> test.txt
-          echo "TITLE=Test GH action PR" >> $GITHUB_ENV
-      - name: Create Pull Request
+      
+      - name: Issue Pull Request
+        if: ${{ github.ref == 'refs/heads/master' }}
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: test commit
-          title: ${{ env.TITLE }}
-          body: Testing automatic CI run with deploy key
-          branch: test-deploy-key
-          labels: bot-update-conda
+          commit-message: "[BOT] Conda Lock Update"
+          title: "[BOT] Conda Lock Update"
+          body: Pull Request created by the ${{ env.GITHUB_WORKFLOW }} workflow.
+          branch: bot-conda-lock-update
+          labels: bot-conda-lock-update,kokoro:force-run
           delete-branch: true
