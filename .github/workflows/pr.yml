@@ -33,7 +33,7 @@ jobs:
           signoff: true
 
       - name: Enable Pull Request Automerge
-        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && github.ref == 'refs/heads/master' }}
+        if: steps.cpr.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
