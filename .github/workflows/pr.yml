@@ -20,6 +20,7 @@ jobs:
           echo "Testing PR GH action" >> test.txt
 
       - name: Issue Pull Request
+        id: cpr
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: peter-evans/create-pull-request@v3
         with:
@@ -30,3 +31,10 @@ jobs:
           labels: bot-conda-lock-update,kokoro:force-run
           delete-branch: true
           signoff: true
+
+      - name: Enable Pull Request Automerge
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && github.ref == 'refs/heads/master' }}
+        uses: peter-evans/enable-pull-request-automerge@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
